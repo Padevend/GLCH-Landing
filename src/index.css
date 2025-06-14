@@ -1,0 +1,15 @@
+@import "tailwindcss";
+@theme{
+    --color-violet-005: #4e179a75;
+    --color-violet-004: #4e179a20;
+    --color-black-005: #00000090;
+    --color-white-005: #ffffff10;
+}
+
+*{
+    font-family: poppins;
+    overflow-x: hidden;
+}
+*::-webkit-scrollbar{
+    display: none;
+}
