@@ -12,6 +12,8 @@ dist
 dist-ssr
 *.local
 .env
+Makefile
+Makefile.local
 
 # Editor directories and files
 .vscode/*

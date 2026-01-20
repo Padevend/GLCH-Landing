@@ -1,31 +1,89 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="icon" type="image/png" href="/logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./src/index.css">
+    <link rel="stylesheet" href="./src/index.css" />
     <title>GLCH - Community</title>
+
+    <!-- Description optimisée SEO -->
+    <meta
+      name="description"
+      content="GLCH Community partage des articles fiables, conseils pratiques et ressources médicales pour améliorer votre santé et votre bien-être."
+    />
+
+    <!-- Mots-clés (moins important mais utile sur certains moteurs) -->
+    <meta
+      name="keywords"
+      content="santé, médecine, bien-être, conseils médicaux, prévention, communauté santé"
+    />
+
+    <!-- Auteur -->
+    <meta
+      name="author"
+      content="GLCH Community - Experts en santé et médecine"
+    />
+
+    <!-- Thème / secteur -->
+    <meta name="subject" content="Santé et Médecine" />
+
+    <!-- SEO santé (Google Health & YMYL) -->
+    <meta name="robots" content="index, follow" />
+    <meta name="rating" content="general" />
+    <meta name="revisit-after" content="7 days" />
+
+    <!-- Open Graph (partage réseaux sociaux) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="GLCH Community - Santé & Médecine" />
+    <meta
+      property="og:description"
+      content="Découvrez nos conseils médicaux, articles santé et ressources pour améliorer votre bien-être au quotidien."
+    />
+    <meta property="og:url" content="https://glchcommunity.online/" />
+    <meta
+      property="og:image"
+      content="https://glchcommunity.online/assets/cover-sante.jpg"
+    />
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="GLCH Community - Santé & Médecine" />
+    <meta
+      name="twitter:description"
+      content="Conseils, articles et informations médicales fiables pour votre santé."
+    />
+
+
+    <!-- Accessibilité & crédibilité médicale -->
+    <meta name="language" content="fr" />
+    <meta name="geo.region" content="CM" />
+    <meta name="geo.placename" content="Yaoundé, Cameroun" />
+
+    <!-- Données structurées JSON-LD (Google Knowledge Graph santé) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "GLCH Community",
+        "url": "https://glchcommunity.online/",
+        "logo": "https://glchcommunity.online/logo.png",
+        "sameAs": [
+          "https://www.facebook.com/glchcommunity",
+          "https://twitter.com/glchcommunity"
+        ],
+        "description": "Communauté dédiée à la santé et la médecine en Afrique centrale.",
+        "areaServed": "CM",
+        "founder": "Equipe médicale GLCH"
+      }
+    </script>
   </head>
   <body class="w-screen h-screen">
     <div id="root" class=""></div>
-
-    <!-- maps.js package  -->
-    <script src="https://js.api.here.com/v3/3.1/mapsjs-core.js"></script>
-    <script src="https://js.api.here.com/v3/3.1/mapsjs-service.js"></script>
-    <script src="https://js.api.here.com/v3/3.1/mapsjs-ui.js"></script>
-    <script src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js"></script>
-
-    <!-- email.js package  -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    <script type="text/javascript">
-        (function () {
-            emailjs.init({
-                publicKey: "wGrUG5AwX4Y1ujRoA",
-            });
-        })();
-    </script>
 
     <script type="module" src="/src/main.jsx"></script>
   </body>
