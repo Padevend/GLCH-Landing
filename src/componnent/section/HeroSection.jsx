@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { Baby, ArrowRight, Heart } from "lucide-react";
 
 export default function HeroSection() {
@@ -8,7 +8,7 @@ export default function HeroSection() {
       className="relative min-h-screen w-full flex items-center overflow-hidden bg-gray-900"
     >
       {/* Background Image with Parallax-ready styling */}
-      <div 
+      <div
         className="absolute inset-0 z-0 bg-[url('/image/background.jpg')] bg-cover bg-center bg-no-repeat scale-105"
         aria-hidden="true"
       />
@@ -21,7 +21,6 @@ export default function HeroSection() {
 
       <div className="container mx-auto px-6 lg:px-24 relative z-20">
         <div className="max-w-4xl flex flex-col items-center md:items-start text-center md:text-left">
-          
           {/* Badge / Tagline */}
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-violet-100 text-sm font-medium mb-8">
             <Heart size={14} className="fill-violet-400 text-violet-400" />
@@ -43,7 +42,6 @@ export default function HeroSection() {
 
           {/* Action Buttons */}
           <div className="mt-10 flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
-            
             {/* Primary Action: Membership */}
             <a
               href="https://glchcommmunitycard.netlify.app"
@@ -52,27 +50,38 @@ export default function HeroSection() {
               className="group relative flex items-center justify-center gap-3 w-full sm:w-auto px-8 py-4 bg-white text-violet-950 font-bold rounded-2xl transition-all duration-300 hover:bg-violet-50 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] active:scale-95"
             >
               <span>APPLY FOR MEMBERSHIP</span>
-              <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
+              <ArrowRight
+                size={18}
+                className="transition-transform group-hover:translate-x-1"
+              />
             </a>
 
             {/* Secondary Action: Donation */}
-            <button className="flex items-center justify-center gap-3 w-full sm:w-auto px-8 py-4 bg-transparent border-2 border-white/30 backdrop-blur-sm text-white font-bold rounded-2xl transition-all duration-300 hover:bg-white/10 hover:border-white active:scale-95">
+            <a
+              href="https://www.paypal.com/ncp/payment/SJ76CH5QB698A"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-3 w-full sm:w-auto px-8 py-4 bg-transparent border-2 border-white/30 backdrop-blur-sm text-white font-bold rounded-2xl transition-all duration-300 hover:bg-white/10 hover:border-white active:scale-95"
+            >
               <Baby size={20} />
               <span className="uppercase tracking-wide">Make a donation</span>
-            </button>
-
+            </a>
           </div>
 
           {/* Trust Indicators / Stats */}
           <div className="mt-16 flex items-center gap-8 border-t border-white/10 pt-8 w-full justify-center md:justify-start">
             <div>
               <div className="text-2xl font-bold text-white">5k+</div>
-              <div className="text-xs uppercase tracking-widest text-violet-200/60 font-medium">Members</div>
+              <div className="text-xs uppercase tracking-widest text-violet-200/60 font-medium">
+                Members
+              </div>
             </div>
             <div className="w-px h-8 bg-white/10" />
             <div>
               <div className="text-2xl font-bold text-white">24/7</div>
-              <div className="text-xs uppercase tracking-widest text-violet-200/60 font-medium">Support</div>
+              <div className="text-xs uppercase tracking-widest text-violet-200/60 font-medium">
+                Support
+              </div>
             </div>
           </div>
         </div>
