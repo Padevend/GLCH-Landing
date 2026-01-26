@@ -58,9 +58,9 @@ export default function MaterialNavbar({ children }) {
                 {route.name}
               </NavLink>
             ))}
-            <button className="ml-4 px-6 py-2.5 bg-gray-900 text-white text-sm font-bold rounded-xl hover:bg-gray-800 transition-transform active:scale-95">
+            <a href="https://platform.glchcommunity.online" className="ml-4 px-6 py-2.5 bg-gray-900 text-white text-sm font-bold rounded-xl hover:bg-gray-800 transition-transform active:scale-95">
               GET STARTED
-            </button>
+            </a>
           </div>
 
           {/* Mobile Burger Button */}
@@ -120,10 +120,10 @@ export default function MaterialNavbar({ children }) {
             ))}
           </nav>
 
-          <div className="p-6 border-t border-gray-300">
-            <button className="w-full py-4 bg-gray-900 text-white font-bold rounded-2xl shadow-lg">
+          <div className="p-6 border-t border-gray-300 w-full relative flex">
+            <a href="https://platform.glchcommunity.online" className="text-center w-full py-4 bg-gray-900 text-white font-bold rounded-2xl shadow-lg">
               GET STARTED
-            </button>
+            </a>
           </div>
         </aside>
       </div>

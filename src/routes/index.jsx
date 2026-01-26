@@ -1,10 +1,9 @@
 import React from "react";
-import { Event, Galerie, Home, NotFound } from "../views";
-// import ArticlesView from "../views/Articles";
+import { Home, NotFound } from "../views";
 const Contact = React.lazy(() => import('../views/contact'));
-// const Galerie = React.lazy(() => import('../views/galerie'));
-// const Event = React.lazy(() => import('../views/events'));
-// const Services = React.lazy(() => import('../views/services'));
+const GalerieView = React.lazy(() => import('../views/galerie/Grid'));
+const Event = React.lazy(() => import('../views/events'));
+const GalerieIndex = React.lazy(() => import('../views/galerie'));
 const EventForms = React.lazy(() => import('../componnent'));
 
 const RoutePath = [
@@ -15,8 +14,12 @@ const RoutePath = [
   },
   {
     path: "/galerie",
-    element: <Galerie />,
+    element: <GalerieIndex />,
     name: "galerie",
+  },
+  {
+    path: "/galerie/:slug",
+    element: <GalerieView />
   },
   {
     path: "/event",

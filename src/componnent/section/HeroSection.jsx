@@ -44,7 +44,7 @@ export default function HeroSection() {
           <div className="mt-10 flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
             {/* Primary Action: Membership */}
             <a
-              href="https://glchcommmunitycard.netlify.app"
+              href="https://card.glchcommunity.online/"
               target="_blank"
               rel="noopener noreferrer"
               className="group relative flex items-center justify-center gap-3 w-full sm:w-auto px-8 py-4 bg-white text-violet-950 font-bold rounded-2xl transition-all duration-300 hover:bg-violet-50 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] active:scale-95"
