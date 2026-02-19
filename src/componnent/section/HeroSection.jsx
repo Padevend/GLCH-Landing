@@ -57,9 +57,9 @@ export default function HeroSection() {
             </a>
 
             {/* Secondary Action: Donation */}
+            {/* href="https://www.paypal.com/ncp/payment/SJ76CH5QB698A" */}
             <a
-              href="https://www.paypal.com/ncp/payment/SJ76CH5QB698A"
-              target="_blank"
+              href="/donate"
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-3 w-full sm:w-auto px-8 py-4 bg-transparent border-2 border-white/30 backdrop-blur-sm text-white font-bold rounded-2xl transition-all duration-300 hover:bg-white/10 hover:border-white active:scale-95"
             >

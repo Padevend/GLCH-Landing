@@ -1,25 +1,10 @@
-import { useState } from "react";
-import { MaterialNavbar } from "./componnent";
-import RoutePath from "./routes";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { RouterProvider } from "react-router-dom";
+import router from "./routes";
 
 function App() {
 
   return (
-    <BrowserRouter>
-      <MaterialNavbar>
-        <Routes>
-          {RoutePath.map((stack, index) => (
-            <Route
-              key={index}
-              path={stack.path}
-              element={stack.element}
-              handle={{ name: stack.name }}
-            />
-          ))}
-        </Routes>
-      </MaterialNavbar>
-    </BrowserRouter>
+    <RouterProvider router={router} />
   );
 }
 

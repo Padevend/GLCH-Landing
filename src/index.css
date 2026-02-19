@@ -1,15 +1,30 @@
 @import "tailwindcss";
-@theme{
-    --color-violet-005: #4e179a75;
-    --color-violet-004: #4e179a20;
-    --color-black-005: #00000090;
-    --color-white-005: #ffffff10;
+@theme {
+  --color-violet-005: #4e179a75;
+  --color-violet-004: #4e179a20;
+  --color-black-005: #00000090;
+  --color-white-005: #ffffff10;
 }
 
-*{
-    font-family: poppins;
-    overflow-x: hidden;
+* {
+  font-family: poppins;
+  overflow-x: hidden;
 }
-*::-webkit-scrollbar{
-    display: none;
+*::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes loading {
+  0% {
+    transform: scaleX(0);
+    opacity: 0.1;
+  }
+  50% {
+    transform: scaleX(0.5);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleX(1);
+    opacity: 0;
+  }
 }
