@@ -15,7 +15,6 @@ export default function Contact() {
 
   useEffect(() => {
     if (isScriptsLoaded && !isScriptsError) {
-      // Initialize EmailJS
       window.emailjs.init({
         publicKey: "wGrUG5AwX4Y1ujRoA",
       });
@@ -38,15 +37,12 @@ export default function Contact() {
           }
         );
 
-        // Interaction behavior and UI
         new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
         H.ui.UI.createDefault(map, maptypes);
 
-        // Marker
         const marker = new H.map.Marker({ lat: 5.6257, lng: 10.25596 });
         map.addObject(marker);
 
-        // Resize listener
         window.addEventListener('resize', () => map.getViewPort().resize());
       }
 
@@ -91,202 +87,215 @@ export default function Contact() {
   }, [status]);
 
   return (
-    <div className="bg-white min-h-screen">
-      {/* Hero Section */}
-      <section className="relative h-[40vh] md:h-[60vh] flex items-center justify-center overflow-hidden">
-        <div 
-          className="absolute inset-0 bg-[url('/image/background.jpg')] bg-cover bg-center"
-          aria-hidden="true"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-violet-950/90 via-violet-900/60 to-transparent" />
-        
-        <div className="container mx-auto px-6 lg:px-24 relative z-10">
+    <div className="bg-[#fafafa] min-h-screen font-sans text-slate-900 selection:bg-slate-100">
+      
+      {/* --- EN-TÊTE ÉDITORIAL TRANSPARENT --- */}
+      <header className="border-b border-slate-200/60 pt-32 pb-16 bg-white">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          
           <NavLink 
             to="/" 
-            className="inline-flex items-center gap-2 text-violet-200 hover:text-white transition-colors mb-6 group"
+            className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-slate-400 hover:text-slate-900 transition-colors mb-8 group"
           >
-            <MoveLeft size={20} className="group-hover:-translate-x-1 transition-transform" />
-            <span className="font-medium tracking-wide tracking-widest uppercase text-xs">Return Home</span>
+            <MoveLeft size={14} className="group-hover:-translate-x-1 transition-transform duration-300" />
+            <span>Retour à l'accueil</span>
           </NavLink>
           
-          <h1 className="text-white text-5xl md:text-7xl font-black tracking-tight mb-4">
-            GET IN <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-200 to-white">TOUCH</span>
-          </h1>
-          <p className="text-violet-100 text-lg md:text-2xl font-light italic max-w-2xl leading-relaxed">
-            Have questions about our community health programs? We're here to help you and your family.
-          </p>
-        </div>
-      </section>
+          <div className="grid lg:grid-cols-12 gap-8 items-end">
+            <div className="lg:col-span-7">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-violet-50 text-violet-700 text-[10px] font-bold tracking-[0.2em] uppercase mb-4 border border-violet-100">
+                <span>Secrétariat Général</span>
+              </div>
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight text-slate-900 uppercase leading-none">
+                CONTACTER LA <br />
+                <span className="bg-gradient-to-r from-violet-600 to-fuchsia-600 bg-clip-text text-transparent">PERMANENCE.</span>
+              </h1>
+            </div>
+            <div className="lg:col-span-5">
+              <p className="text-slate-500 text-sm sm:text-base font-normal leading-relaxed border-l-2 border-slate-200 pl-6">
+                Une question sur nos programmes de santé communautaire ou nos ateliers ? Nos équipes médicales et administratives vous répondent sous 24 heures ouvrées.
+              </p>
+            </div>
+          </div>
 
-      {/* Main Content Section */}
-      <section className="py-16 md:py-24 container mx-auto px-6 lg:px-24">
-        <div className="grid lg:grid-cols-12 gap-12 items-start">
+        </div>
+      </header>
+
+      {/* --- ZONE PRINCIPALE DE CONTENU --- */}
+      <main className="max-w-7xl mx-auto px-6 lg:px-8 py-20">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           
-          {/* Left Side: Contact Info & Map */}
-          <div className="lg:col-span-5 space-y-8">
-            <div className="bg-violet-900 rounded-[2.5rem] p-8 md:p-12 text-white shadow-2xl shadow-violet-200 relative overflow-hidden">
-              {/* Decorative circle */}
-              <div className="absolute -top-10 -right-10 w-40 h-40 bg-white/5 rounded-full" />
+          {/* COLONNE GAUCHE : INDEX INFORMATIONNEL & CARTE */}
+          <div className="lg:col-span-5 space-y-6">
+            <div className="bg-white border border-slate-200/60 rounded-[2.5rem] p-6 sm:p-10 shadow-[0_4px_30px_rgba(0,0,0,0.01)]">
+              <h3 className="text-xs font-black text-slate-900 uppercase tracking-widest border-b border-slate-100 pb-4 mb-6">
+                Coordonnées de l'Établissement
+              </h3>
               
-              <h2 className="text-3xl font-bold mb-8">Contact Information</h2>
-              
-              <div className="space-y-8 relative z-10">
-                <div className="flex gap-6">
-                  <div className="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center shrink-0">
-                    <MapPin size={24} className="text-violet-300" />
+              <div className="space-y-6">
+                <div className="flex gap-4">
+                  <div className="w-10 h-10 bg-slate-50 border border-slate-200/60 rounded-xl flex items-center justify-center shrink-0 text-slate-500">
+                    <MapPin size={16} />
                   </div>
                   <div>
-                    <h4 className="font-bold text-lg mb-1">Our Location</h4>
-                    <p className="text-violet-200 leading-relaxed">
+                    <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Siège National</h4>
+                    <p className="text-sm font-medium text-slate-800 leading-relaxed">
                       Mbouda, Bametap, Douala,<br />
                       B.P. 13208 Yaoundé, Cameroun
                     </p>
                   </div>
                 </div>
 
-                <div className="flex gap-6">
-                  <div className="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center shrink-0">
-                    <Phone size={24} className="text-violet-300" />
+                <div className="flex gap-4">
+                  <div className="w-10 h-10 bg-slate-50 border border-slate-200/60 rounded-xl flex items-center justify-center shrink-0 text-slate-500">
+                    <Phone size={16} />
                   </div>
                   <div>
-                    <h4 className="font-bold text-lg mb-1">Phone Number</h4>
-                    <p className="text-violet-200 text-xl font-semibold">( +237 ) 659 375 114</p>
+                    <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Ligne Directe</h4>
+                    <p className="text-sm font-mono font-bold text-slate-900">(+237) 659 375 114</p>
                   </div>
                 </div>
 
-                <div className="flex gap-6">
-                  <div className="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center shrink-0">
-                    <Mail size={24} className="text-violet-300" />
+                <div className="flex gap-4">
+                  <div className="w-10 h-10 bg-slate-50 border border-slate-200/60 rounded-xl flex items-center justify-center shrink-0 text-slate-500">
+                    <Mail size={16} />
                   </div>
                   <div>
-                    <h4 className="font-bold text-lg mb-1">Email Address</h4>
-                    <p className="text-violet-200 font-medium">grandluccommunityhealth@gmail.com</p>
+                    <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Courriel Médical</h4>
+                    <p className="text-sm font-medium text-slate-800">grandluccommunityhealth@gmail.com</p>
                   </div>
                 </div>
 
-                <div className="flex gap-6">
-                  <div className="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center shrink-0">
-                    <Clock size={24} className="text-violet-300" />
+                <div className="flex gap-4">
+                  <div className="w-10 h-10 bg-slate-50 border border-slate-200/60 rounded-xl flex items-center justify-center shrink-0 text-slate-500">
+                    <Clock size={16} />
                   </div>
                   <div>
-                    <h4 className="font-bold text-lg mb-1">Working Hours</h4>
-                    <p className="text-violet-200">Mon - Fri: 08:00 AM - 05:00 PM</p>
+                    <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Accueil du Public</h4>
+                    <p className="text-sm font-medium text-slate-800">Lun - Ven : 08:00 — 17:00 (WAT)</p>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Map Container */}
-            <div className="rounded-[2.5rem] overflow-hidden shadow-xl border border-gray-100 h-80 bg-gray-100" id="map">
-              {/* Map will be initialized here */}
+            {/* Conteneur Cartographique Épuré */}
+            <div className="rounded-[2.5rem] overflow-hidden border border-slate-200/60 h-72 bg-slate-50 shadow-[0_4px_30px_rgba(0,0,0,0.01)]" id="map">
+              {/* Le module Here Map s'injecte ici */}
             </div>
           </div>
 
-          {/* Right Side: Contact Form */}
-          <div className="lg:col-span-7">
-            <div className="bg-white p-2 md:p-6">
-              <div className="mb-10">
-                <h3 className="text-violet-800 font-bold uppercase tracking-widest text-sm mb-4">Send a message</h3>
-                <h2 className="text-4xl font-black text-gray-900 mb-6">How can we help you?</h2>
-                <div className="w-16 h-1.5 bg-violet-600 rounded-full"></div>
+          {/* COLONNE DROITE : DOSSIER DE SOUMISSION (Formulaire) */}
+          <div className="lg:col-span-7 bg-white border border-slate-200/60 rounded-[2.5rem] p-6 sm:p-10 shadow-[0_4px_30px_rgba(0,0,0,0.01)]">
+            <div className="mb-8">
+              <h3 className="text-xs font-black text-slate-900 uppercase tracking-widest border-b border-slate-100 pb-4 mb-2">
+                Transmission Sécurisée
+              </h3>
+              <p className="text-xs text-slate-400 font-normal">
+                Veuillez renseigner les champs requis pour l'indexation de votre demande auprès de nos services.
+              </p>
+            </div>
+
+            <form onSubmit={formSubmitted} className="space-y-6">
+              
+              {/* Messages d'état d'envoi */}
+              {status === "success" && (
+                <div className="flex items-center gap-3 bg-emerald-50 border border-emerald-200 p-4 rounded-xl text-emerald-800 text-sm font-medium">
+                  <CheckCircle2 size={16} className="text-emerald-600 shrink-0" />
+                  <span>Votre protocole d'information a été transmis avec succès.</span>
+                </div>
+              )}
+
+              {status === "failed" && (
+                <div className="flex items-center gap-3 bg-red-50 border border-red-200 p-4 rounded-xl text-red-800 text-sm font-medium">
+                  <AlertCircle size={16} className="text-red-600 shrink-0" />
+                  <span>Une anomalie réseau est survenue. Veuillez réitérer la transmission.</span>
+                </div>
+              )}
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider ml-1">Identité Complète</label>
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="Ex: Dr. Jean-Noël"
+                    required
+                    className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl outline-none focus:bg-white focus:border-slate-950 transition-all text-sm"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider ml-1">Adresse Courriel</label>
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="adresse@domaine.com"
+                    required
+                    className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl outline-none focus:bg-white focus:border-slate-950 transition-all text-sm"
+                  />
+                </div>
               </div>
 
-              <form onSubmit={formSubmitted} className="space-y-6">
-                {/* Status Messages */}
-                {status === "success" && (
-                  <div className="flex items-center gap-3 bg-green-50 border border-green-200 p-4 rounded-2xl text-green-700 animate-in fade-in slide-in-from-top-2">
-                    <CheckCircle2 size={20} />
-                    <span className="font-medium">Thank you! Your message has been sent successfully.</span>
-                  </div>
-                )}
-
-                {status === "failed" && (
-                  <div className="flex items-center gap-3 bg-red-50 border border-red-200 p-4 rounded-2xl text-red-700 animate-in fade-in slide-in-from-top-2">
-                    <AlertCircle size={20} />
-                    <span className="font-medium">Oops! Something went wrong. Please try again later.</span>
-                  </div>
-                )}
-
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-xs font-bold text-gray-500 uppercase tracking-wider ml-1">Full Name</label>
-                    <input
-                      type="text"
-                      name="name"
-                      placeholder="John Doe"
-                      required
-                      className="w-full px-6 py-4 bg-gray-50 border-2 border-transparent focus:border-violet-600 focus:bg-white rounded-2xl outline-none transition-all placeholder:text-gray-400 font-medium"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-xs font-bold text-gray-500 uppercase tracking-wider ml-1">Email Address</label>
-                    <input
-                      type="email"
-                      name="email"
-                      placeholder="john@example.com"
-                      required
-                      className="w-full px-6 py-4 bg-gray-50 border-2 border-transparent focus:border-violet-600 focus:bg-white rounded-2xl outline-none transition-all placeholder:text-gray-400 font-medium"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-xs font-bold text-gray-500 uppercase tracking-wider ml-1">Phone Number</label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      placeholder="+237 6xx xxx xxx"
-                      required
-                      className="w-full px-6 py-4 bg-gray-50 border-2 border-transparent focus:border-violet-600 focus:bg-white rounded-2xl outline-none transition-all placeholder:text-gray-400 font-medium"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-xs font-bold text-gray-500 uppercase tracking-wider ml-1">Subject</label>
-                    <input
-                      type="text"
-                      name="subject"
-                      placeholder="Membership inquiry"
-                      required
-                      className="w-full px-6 py-4 bg-gray-50 border-2 border-transparent focus:border-violet-600 focus:bg-white rounded-2xl outline-none transition-all placeholder:text-gray-400 font-medium"
-                    />
-                  </div>
-                </div>
-
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <label className="text-xs font-bold text-gray-500 uppercase tracking-wider ml-1">Your Message</label>
-                  <textarea
-                    name="message"
-                    rows="5"
-                    placeholder="Tell us how we can assist you..."
+                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider ml-1">Téléphone Réseau</label>
+                  <input
+                    type="tel"
+                    name="phone"
+                    placeholder="+237 6xx xxx xxx"
                     required
-                    className="w-full px-6 py-4 bg-gray-50 border-2 border-transparent focus:border-violet-600 focus:bg-white rounded-2xl outline-none transition-all placeholder:text-gray-400 font-medium resize-none"
-                  ></textarea>
+                    className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl outline-none focus:bg-white focus:border-slate-950 transition-all text-sm"
+                  />
                 </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider ml-1">Objet de la Demande</label>
+                  <input
+                    type="text"
+                    name="subject"
+                    placeholder="Ex: Coordination de projet"
+                    required
+                    className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl outline-none focus:bg-white focus:border-slate-950 transition-all text-sm"
+                  />
+                </div>
+              </div>
 
+              <div className="space-y-2">
+                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider ml-1">Descriptif de votre message</label>
+                <textarea
+                  name="message"
+                  rows="5"
+                  placeholder="Formulez de manière concise votre requête à l'attention du secrétariat général..."
+                  required
+                  className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl outline-none focus:bg-white focus:border-slate-950 transition-all text-sm resize-none"
+                ></textarea>
+              </div>
+
+              <div className="pt-2">
                 <button
                   type="submit"
                   disabled={status === "loading"}
-                  className={`w-full md:w-auto px-10 py-4 rounded-2xl font-bold flex items-center justify-center gap-3 transition-all shadow-xl shadow-violet-200 active:scale-95 ${
+                  className={`w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-xs tracking-widest uppercase flex items-center justify-center gap-2.5 transition-all duration-300 ${
                     status === "loading" 
-                    ? "bg-gray-400 cursor-not-allowed text-white" 
-                    : "bg-violet-800 text-white hover:bg-violet-900 hover:-translate-y-1"
+                    ? "bg-slate-200 text-slate-400 cursor-not-allowed" 
+                    : "bg-slate-950 text-white hover:bg-slate-900"
                   }`}
                 >
                   {status === "loading" ? (
-                    <div className="w-6 h-6 border-4 border-white/30 border-t-white rounded-full animate-spin" />
+                    <div className="w-4 h-4 border-2 border-slate-400 border-t-slate-950 rounded-full animate-spin" />
                   ) : (
                     <>
-                      <span>Send Message</span>
-                      <Send size={20} />
+                      <span>Transmettre le message</span>
+                      <Send size={12} className="text-slate-400" />
                     </>
                   )}
                 </button>
-              </form>
-            </div>
+              </div>
+
+            </form>
           </div>
+
         </div>
-      </section>
+      </main>
+
     </div>
   );
 }

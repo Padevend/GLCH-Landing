@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from "react";
 import {
-  ArrowDownToLine,
-  Eye,
-  MoveLeft,
   X,
   ChevronLeft,
   ChevronRight,
   Download,
   Maximize2,
   Calendar,
+  MoveLeft
 } from "lucide-react";
-import { NavLink, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import GController from "#assets/gallery/index.jsx";
 
 export default function GalerieView() {
@@ -22,14 +20,16 @@ export default function GalerieView() {
 
   const loadImage = () => {
     const cat = GController.findBy("slug", slug);
-    const images = GController.getImageInFolder(cat.folder);
-    setImagesAssets(images);
+    if (cat) {
+      const images = GController.getImageInFolder(cat.folder);
+      setImagesAssets(images);
+    }
     setIsLoading(false);
   };
 
   useEffect(() => {
     loadImage();
-  }, []);
+  }, [slug]);
 
   const openPreview = (index) => {
     setCurrentIndex(index);
@@ -50,7 +50,7 @@ export default function GalerieView() {
   const prevImage = (e) => {
     e?.stopPropagation();
     setCurrentIndex(
-      (prev) => (prev - 1 + Images_assets.length) % Images_assets.length,
+      (prev) => (prev - 1 + Images_assets.length) % Images_assets.length
     );
   };
 
@@ -65,145 +65,147 @@ export default function GalerieView() {
   };
 
   return (
-    <div className="bg-white min-h-screen">
-      {/* Hero Section with Parallax Effect */}
-      <section className="relative h-[40vh] md:h-[60vh] flex items-center justify-center overflow-hidden">
-        <div
-          className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1516549655169-df83a0774514?q=80&w=1920&auto=format&fit=crop')] bg-cover bg-center transition-transform duration-1000 scale-105"
-          aria-hidden="true"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-violet-950/90 via-violet-900/60 to-transparent" />
-
-        <div className="container mx-auto px-6 lg:px-24 relative z-10">
-          <NavLink
-            to="/"
-            className="inline-flex items-center gap-2 text-violet-200 hover:text-white transition-colors mb-6 group"
+    <div className="bg-[#fafafa] min-h-screen font-sans text-slate-900">
+      
+      {/* --- EN-TÊTE CHRONOLOGIQUE CLAIR --- */}
+      <header className="border-b border-slate-200/60 pt-32 pb-16 bg-white">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          
+          <Link 
+            to="/galerie" 
+            className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-slate-400 hover:text-slate-900 transition-colors mb-8 group"
           >
-            <MoveLeft
-              size={20}
-              className="group-hover:-translate-x-1 transition-transform"
-            />
-            <span className="font-medium tracking-wide">Back to Home</span>
-          </NavLink>
+            <MoveLeft size={14} className="group-hover:-translate-x-1 transition-transform duration-300" />
+            <span>Retour aux collections</span>
+          </Link>
+          
+          <div className="grid lg:grid-cols-12 gap-8 items-end">
+            <div className="lg:col-span-8">
+              <div className="flex items-center gap-2 text-[10px] font-mono font-bold text-violet-600 uppercase tracking-[0.2em] mb-3">
+                <Calendar size={12} />
+                <span>Exploration de l'album</span>
+              </div>
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-slate-900 uppercase leading-none">
+                REPORTAGE <br />
+                <span className="bg-gradient-to-r from-violet-600 to-fuchsia-600 bg-clip-text text-transparent">TERRAIN</span>
+              </h1>
+            </div>
+            <div className="lg:col-span-4">
+              <p className="text-slate-500 text-xs sm:text-sm font-normal leading-relaxed">
+                "Capturing moments of hope, healing, and community strength. Chaque cliché témoigne de notre engagement."
+              </p>
+            </div>
+          </div>
 
-          <h1 className="text-white text-5xl md:text-7xl font-black tracking-tight mb-4">
-            OUR{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-200 to-white">
-              GALLERY
-            </span>
-          </h1>
-          <p className="text-violet-100 text-lg md:text-2xl font-light italic max-w-2xl">
-            "Capturing moments of hope, healing, and community strength since
-            2021."
-          </p>
         </div>
-      </section>
+      </header>
 
-      {/* Gallery Grid */}
-      <section className="py-16 md:py-24 container mx-auto px-6 lg:px-24">
+      {/* --- GRILLE MAÇONNERIE PREMIUM (LIGHT MASONRY) --- */}
+      <main className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
         {isLoading ? (
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 animate-pulse">
-            {[...Array(12)].map((_, i) => (
-              <div key={i} className="aspect-square bg-gray-200 rounded-3xl" />
+          <div className="columns-1 sm:columns-2 lg:columns-4 gap-6 space-y-6 animate-pulse">
+            {[...Array(8)].map((_, i) => (
+              <div key={i} className="w-full bg-slate-200 rounded-3xl h-64 break-inside-avoid" />
             ))}
           </div>
         ) : (
-          <div className="columns-1 sm:columns-2 lg:columns-4 gap-4 space-y-4">
+          <div className="columns-1 sm:columns-2 lg:columns-4 gap-6 space-y-6">
             {Images_assets.map((src, index) => (
               <div
                 key={index}
-                className="group relative break-inside-avoid rounded-3xl overflow-hidden cursor-pointer bg-gray-100 shadow-sm hover:shadow-2xl transition-all duration-500"
+                className="group relative break-inside-avoid rounded-3xl overflow-hidden cursor-pointer bg-white border border-slate-200/60 p-3 shadow-[0_4px_30px_rgba(0,0,0,0.01)] hover:shadow-[0_30px_60px_-15px_rgba(148,163,184,0.12)] transition-all duration-500"
                 onClick={() => openPreview(index)}
               >
-                <img
-                  src={src}
-                  alt={`Event ${src}`}
-                  className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-
-                {/* Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-violet-900/80 via-violet-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-end p-6">
-                  <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                    <div className="flex items-center gap-2 text-white/80 text-xs font-bold uppercase tracking-widest mb-2">
-                      <Calendar size={12} />
-                      <span>Event 2023</span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <h3 className="text-white font-bold text-lg">
-                        Community Outreach
-                      </h3>
-                      <div className="w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white">
-                        <Maximize2 size={18} />
-                      </div>
+                {/* Conteneur de l'image isolée */}
+                <div className="relative overflow-hidden rounded-2xl bg-slate-50">
+                  <img
+                    src={src}
+                    alt={`Gallery capture ${index + 1}`}
+                    className="w-full h-auto object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-103"
+                  />
+                  
+                  {/* Micro overlay épuré au survol */}
+                  <div className="absolute inset-0 bg-slate-950/0 group-hover:bg-slate-950/[0.03] transition-colors duration-500 flex items-center justify-center">
+                    <div className="w-10 h-10 bg-white/90 backdrop-blur-md text-slate-900 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-90 group-hover:scale-100 flex items-center justify-center shadow-md border border-slate-200/40">
+                      <Maximize2 size={16} />
                     </div>
                   </div>
+                </div>
+
+                {/* Petite légende technique sous le cadre pour accentuer le look "Expo" */}
+                <div className="mt-3 flex items-center justify-between px-1 text-[10px] font-mono font-bold text-slate-400">
+                  <span>GLCH_ARCHIVE_2026</span>
+                  <span>#{index + 1}</span>
                 </div>
               </div>
             ))}
           </div>
         )}
-      </section>
+      </main>
 
-      {/* Premium Lightbox Preview */}
+      {/* --- EXTRA-PREMIUM LIGHTBOX PREVIEW --- */}
       {isPreview && (
         <div
-          className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-sm flex items-center justify-center p-4 md:p-10 transition-all duration-500"
+          className="fixed inset-0 z-[100] bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4 md:p-10 transition-all duration-500"
           onClick={closePreview}
         >
-          {/* Close Button */}
+          {/* Fermeture Épurée Haute */}
           <button
-            className="absolute top-6 right-6 z-[110] text-white/50 hover:text-white transition-colors bg-white/10 p-3 rounded-full hover:bg-white/20"
+            className="absolute top-6 right-6 z-[110] text-slate-400 hover:text-white transition-colors bg-white/5 p-3 rounded-xl border border-white/5 hover:border-white/20"
             onClick={closePreview}
+            aria-label="Fermer"
           >
-            <X size={32} />
+            <X size={20} />
           </button>
 
-          {/* Navigation Buttons */}
+          {/* Navigation Latérale Géométrique */}
           <button
-            className="absolute left-4 top-1/2 -translate-y-1/2 z-[110] text-white/50 hover:text-white transition-colors bg-white/5 p-4 rounded-full hover:bg-white/10 hidden md:flex"
+            className="absolute left-6 top-1/2 -translate-y-1/2 z-[110] text-slate-400 hover:text-white transition-colors bg-white/5 p-3.5 rounded-xl border border-white/5 hover:border-white/20 hidden md:flex"
             onClick={prevImage}
           >
-            <ChevronLeft size={40} />
+            <ChevronLeft size={22} />
           </button>
 
           <button
-            className="absolute right-4 top-1/2 -translate-y-1/2 z-[110] text-white/50 hover:text-white transition-colors bg-white/5 p-4 rounded-full hover:bg-white/10 hidden md:flex"
+            className="absolute right-6 top-1/2 -translate-y-1/2 z-[110] text-slate-400 hover:text-white transition-colors bg-white/5 p-3.5 rounded-xl border border-white/5 hover:border-white/20 hidden md:flex"
             onClick={nextImage}
           >
-            <ChevronRight size={40} />
+            <ChevronRight size={22} />
           </button>
 
-          {/* Image Container */}
+          {/* Conteneur d'affichage de la photo principale */}
           <div
-            className="relative max-w-6xl w-full max-h-[85vh] flex flex-col items-center"
+            className="relative max-w-5xl w-full max-h-[85vh] flex flex-col items-center"
             onClick={(e) => e.stopPropagation()}
           >
             <img
               src={Images_assets[currentIndex]}
-              className="max-w-full max-h-[75vh] object-contain rounded-lg shadow-2xl animate-in zoom-in-95 duration-300"
-              alt="Preview"
+              className="max-w-full max-h-[72vh] object-contain rounded-2xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.7)] animate-in zoom-in-95 duration-300"
+              alt="Visualisation archive"
             />
 
-            <div className="mt-8 flex flex-col md:flex-row items-center justify-between w-full max-w-4xl gap-4">
-              <div className="text-center md:text-left">
-                <h4 className="text-white text-2xl font-bold">
-                  Community Health Event
+            {/* Légende Technique Inférieure du Lightbox */}
+            <div className="mt-8 flex flex-col sm:flex-row items-center justify-between w-full max-w-3xl gap-4 border-t border-white/10 pt-6">
+              <div className="text-center sm:text-left">
+                <h4 className="text-white text-base font-bold tracking-tight">
+                  Community Health Action Archive
                 </h4>
-                <p className="text-gray-400 text-sm">
-                  Yaoundé, Cameroon • October 2023
+                <p className="text-slate-500 text-xs mt-0.5">
+                  Grand Luc Community Health Operational Unit • Yaoundé, Cameroun
                 </p>
               </div>
 
-              <div className="flex items-center gap-4">
-                <span className="text-gray-500 text-sm font-mono tracking-widest uppercase">
-                  {currentIndex + 1} / {Images_assets.length}
+              {/* Actions de Téléchargement & Indexation */}
+              <div className="flex items-center gap-5">
+                <span className="text-slate-500 font-mono text-xs tracking-widest">
+                  {currentIndex + 1} <span className="text-slate-700">/</span> {Images_assets.length}
                 </span>
                 <button
-                  className="flex items-center gap-3 bg-violet-600 hover:bg-violet-700 text-white px-8 py-3 rounded-2xl font-bold transition-all hover:scale-105 active:scale-95 shadow-xl shadow-violet-900/40"
+                  className="inline-flex items-center gap-2 bg-white hover:bg-slate-100 text-slate-950 px-5 py-3 rounded-xl text-xs font-bold tracking-widest uppercase transition-all active:scale-[0.98]"
                   onClick={handleDownload}
                 >
-                  <Download size={20} />
-                  <span>DOWNLOAD</span>
+                  <Download size={14} />
+                  <span>Download</span>
                 </button>
               </div>
             </div>

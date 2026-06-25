@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Heart, Globe, CreditCard, ChevronRight, AlertCircle } from "lucide-react";
+import { Heart, Globe, CreditCard, ChevronRight, AlertCircle, ShieldCheck } from "lucide-react";
+import { donations_links } from "../../data";
 
 const AVAILABLE_COUNTRIES = [
   { code: "CM", name: "Cameroun" },
@@ -13,94 +14,120 @@ const AVAILABLE_COUNTRIES = [
 
 export default function DonationProviderView() {
   const navigate = useNavigate();
-  const [showCountries, setShowCountries] = useState(false);
 
   return (
-    <div className="min-h-[80vh] flex items-center justify-center px-4 py-12 bg-slate-50">
-      <div className="max-w-2xl w-full">
-        {/* Header Section */}
-        <div className="text-center mb-10">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-violet-100 text-violet-600 mb-4 animate-bounce">
-            <Heart size={32} fill="currentColor" />
+    <div className="min-h-screen bg-[#fafafa] font-sans text-slate-900 flex items-center justify-center px-6 py-20 selection:bg-slate-100">
+      <div className="max-w-3xl w-full">
+        
+        {/* --- EN-TÊTE DU GUICHET D'ACCOMPAGNEMENT --- */}
+        <div className="border-b border-slate-200/60 pb-10 mb-12 text-center md:text-left">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-violet-50 text-violet-700 text-[10px] font-bold tracking-[0.2em] uppercase mb-6 border border-violet-100">
+            <Heart size={10} className="fill-current" />
+            <span>Dotation de Solidarité</span>
           </div>
-          <h1 className="text-3xl md:text-4xl font-black text-slate-900 mb-4 tracking-tight">
-            Soutenir notre <span className="text-violet-600">Communauté</span>
-          </h1>
-          <p className="text-slate-500 text-lg max-w-md mx-auto">
-            Choisissez la méthode de paiement la plus adaptée à votre situation géographique.
-          </p>
+          
+          <div className="grid md:grid-cols-12 gap-6 items-end">
+            <div className="md:col-span-7">
+              <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-slate-900 uppercase leading-none">
+                SOUTENIR NOTRE <br />
+                <span className="bg-gradient-to-r from-violet-600 to-fuchsia-600 bg-clip-text text-transparent">COMMUNAUTÉ.</span>
+              </h1>
+            </div>
+            <div className="md:col-span-5">
+              <p className="text-slate-500 text-xs sm:text-sm font-normal leading-relaxed md:border-l border-slate-200 md:pl-6">
+                Chaque contribution participe directement au déploiement de nos infrastructures et de nos protocoles de soin locaux.
+              </p>
+            </div>
+          </div>
         </div>
 
-        {/* Main Question Card */}
-        <div className="bg-white rounded-[2.5rem] shadow-xl shadow-slate-200/60 border border-slate-100 p-8 md:p-12 relative overflow-hidden">
-          {/* Decorative background element */}
-          <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-violet-50 rounded-full blur-3xl opacity-50"></div>
+        {/* --- FORMULAIRE DE VÉRIFICATION GÉOGRAPHIQUE --- */}
+        <div className="bg-white border border-slate-200/60 rounded-[2.5rem] p-6 sm:p-10 shadow-[0_4px_30px_rgba(0,0,0,0.01)]">
+          
+          <div className="mb-8">
+            <h3 className="text-xs font-black text-slate-900 uppercase tracking-widest border-b border-slate-100 pb-4 mb-2">
+              Vérification de la Zone de Résidence
+            </h3>
+            <p className="text-xs text-slate-400 font-normal">
+              Afin d'ajuster le protocole de virement, confirmez si vous résidez actuellement dans l'un des pays suivants :
+            </p>
+          </div>
 
-          <div className="relative z-10">
-            <h2 className="text-xl md:text-2xl font-bold text-slate-800 mb-8 text-center">
-              Êtes-vous résident dans l'un de ces pays ?
-            </h2>
-
-            {/* Country Tags */}
-            <div className="flex flex-wrap justify-center gap-2 mb-10">
-              {AVAILABLE_COUNTRIES.map((country) => (
-                <span 
-                  key={country.code}
-                  className="px-4 py-1.5 bg-slate-50 border border-slate-100 rounded-full text-sm font-semibold text-slate-600"
-                >
-                  {country.name}
-                </span>
-              ))}
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-4">
-              {/* YES OPTION - Local Payment */}
-              <button
-                onClick={() => navigate("/donate/mobile")}
-                className="group relative flex flex-col items-center justify-center p-6 bg-white border-2 border-slate-100 rounded-3xl hover:border-violet-600 hover:shadow-xl hover:shadow-violet-100 transition-all duration-300"
+          {/* Liste des pays sous forme d'index de badges fins */}
+          <div className="flex flex-wrap gap-2 mb-10">
+            {AVAILABLE_COUNTRIES.map((country) => (
+              <span 
+                key={country.code}
+                className="px-3 py-1.5 bg-slate-50 border border-slate-200/60 rounded-xl text-xs font-mono font-bold text-slate-600 uppercase tracking-wide"
               >
-                <div className="w-12 h-12 bg-violet-600 text-white rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                  <Globe size={24} />
-                </div>
-                <span className="text-lg font-black text-slate-900">OUI</span>
-                <span className="text-sm text-slate-500 mt-1">Paiement Mobile Local</span>
-                <div className="mt-4 flex items-center text-violet-600 font-bold text-sm">
-                  Continuer <ChevronRight size={16} className="ml-1" />
-                </div>
-              </button>
+                {country.name}
+              </span>
+            ))}
+          </div>
 
-              {/* NO OPTION - PayPal (Coming Soon) */}
-              <div className="relative group">
-                <button
-                  disabled
-                  className="w-full flex flex-col items-center justify-center p-6 bg-slate-50 border-2 border-dashed border-slate-200 rounded-3xl cursor-not-allowed opacity-80"
-                >
-                  <div className="w-12 h-12 bg-slate-200 text-slate-400 rounded-2xl flex items-center justify-center mb-4">
-                    <CreditCard size={24} />
-                  </div>
-                  <span className="text-lg font-black text-slate-400">NON</span>
-                  <span className="text-sm text-slate-400 mt-1">PayPal / Carte Int.</span>
-                  
-                  {/* Coming Soon Badge */}
-                  <div className="mt-4 px-3 py-1 bg-amber-100 text-amber-700 text-[10px] font-black uppercase tracking-widest rounded-full flex items-center gap-1">
-                    <AlertCircle size={12} /> Bientôt disponible
-                  </div>
-                </button>
-                
-                {/* Tooltip on hover */}
-                <div className="absolute -bottom-12 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-xs py-2 px-4 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-                  PayPal arrive bientôt pour le reste du monde !
+          {/* Grille des passerelles de transfert */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            
+            {/* OPTION : OUI - Passerelle Locale Mobile */}
+            <button
+              onClick={() => window.location.href = donations_links.mesomb}
+              className="group flex flex-col justify-between p-6 bg-slate-50/50 border border-slate-200 rounded-2xl hover:border-slate-950 hover:bg-white transition-all duration-300 text-left"
+            >
+              <div>
+                <div className="w-9 h-9 bg-slate-950 text-white rounded-xl flex items-center justify-center mb-6 transition-transform duration-300 group-hover:scale-105">
+                  <Globe size={14} />
                 </div>
+                <h4 className="text-sm font-black text-slate-900 uppercase tracking-tight mb-1">RÉSIDENT DE LA ZONE</h4>
+                <p className="text-xs text-slate-400 font-normal leading-relaxed">
+                  Activez le protocole sécurisé via Mobile Money (Orange Money, MTN, Wave, Moov).
+                </p>
+              </div>
+              
+              <div className="mt-8 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold tracking-widest text-slate-900 uppercase w-full">
+                <span>Continuer l'envoi</span>
+                <ChevronRight size={14} className="text-slate-400 group-hover:translate-x-0.5 transition-transform duration-300" />
+              </div>
+            </button>
+
+            {/* OPTION : NON - Passerelle Internationale (Bientôt) */}
+            <div className="flex flex-col justify-between p-6 bg-slate-50/20 border border-dashed border-slate-200 rounded-2xl opacity-60">
+              <div>
+                <div className="w-9 h-9 bg-slate-100 text-slate-400 rounded-xl flex items-center justify-center mb-6">
+                  <CreditCard size={14} />
+                </div>
+                <h4 className="text-sm font-black text-slate-400 uppercase tracking-tight mb-1">AUTRE ZONE GÉOGRAPHIQUE</h4>
+                <p className="text-xs text-slate-400 font-normal leading-relaxed">
+                  Traitement de dotation internationale par PayPal et Cartes Bancaires majeures.
+                </p>
+              </div>
+              
+              <div className="mt-8 pt-4 border-t border-slate-100/60 flex items-center">
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-amber-50/60 border border-amber-100 text-amber-800 text-[10px] font-bold uppercase tracking-wider rounded-lg">
+                  <AlertCircle size={10} /> En cours de validation
+                </span>
               </div>
             </div>
+
           </div>
         </div>
 
-        {/* Footer Info */}
-        <p className="mt-8 text-center text-slate-400 text-sm">
-          Vos transactions sont sécurisées et cryptées. <br className="hidden md:block" />
-          Besoin d'aide ? <button className="text-violet-600 font-bold hover:underline">Contactez le support</button>
-        </p>
+        {/* --- PIED DE PAGE : CERTIFICATION & SUPPORT --- */}
+        <footer className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-400 px-2 font-medium">
+          <div className="flex items-center gap-2">
+            <ShieldCheck size={14} className="text-slate-300" />
+            <span>Flux de transactions audité, chiffré de bout en bout (SSL/TLS).</span>
+          </div>
+          <div>
+            Une question ?{" "}
+            <button 
+              onClick={() => navigate("/contact")}
+              className="text-slate-900 font-bold hover:underline transition-all"
+            >
+              Joindre le secrétariat général
+            </button>
+          </div>
+        </footer>
+
       </div>
     </div>
   );

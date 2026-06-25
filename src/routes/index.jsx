@@ -1,6 +1,6 @@
 // router.tsx
 import React, { Suspense } from "react";
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Outlet } from "react-router-dom";
 import { Home, NotFound } from "../views";
 import { MaterialNavbar } from "../componnent";
 
@@ -8,9 +8,9 @@ const Contact = React.lazy(() => import("../views/contact"));
 const GalerieView = React.lazy(() => import("../views/galerie/Grid"));
 const Event = React.lazy(() => import("../views/events"));
 const GalerieIndex = React.lazy(() => import("../views/galerie"));
-const EventForms = React.lazy(() => import("../componnent"));
-const DonateView = React.lazy(() => import("../views/donation/mobilePayement"));
-const DonationProviderView  = React.lazy(() => import("../views/donation/dinationView"));
+const DonationProviderView = React.lazy(() => import("../views/donation/dinationView"));
+const ArticlesView = React.lazy(() => import("../views/articles"));
+const DetailsView = React.lazy(() => import("../views/articles/DetailsView"));
 
 const RouteLoader = () => {
   return (
@@ -43,9 +43,9 @@ const RouteLoader = () => {
 /**
  * HOC withSuspense mis à jour avec le nouveau design
  */
-const withSuspense = (Component) => (
+const PageLoader = () => (
   <Suspense fallback={<RouteLoader />}>
-    {Component}
+    <Outlet />
   </Suspense>
 );
 
@@ -53,51 +53,62 @@ const withSuspense = (Component) => (
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <MaterialNavbar />,
+    element: <PageLoader />,
     children: [
       {
-        index: true,
-        element: <Home />
+        path: "",
+        element: <MaterialNavbar />,
+        children: [
+          {
+            index: true,
+            element: <Home />
+          },
+          {
+            path: "/galerie",
+            element: <GalerieIndex />
+          },
+          {
+            path: "/galerie/:slug",
+            element: <GalerieView />
+          },
+          {
+            path: "/event",
+            element: <Event />
+          },
+          {
+            path: "/contact",
+            element: <Contact />
+          },
+          {
+            path: "/article",
+            children: [
+              {
+                index: true,
+                element: <ArticlesView />
+              },
+              {
+                path:":slug",
+                element: <DetailsView />
+              }
+            ]
+          },
+        ]
       },
       {
-        path: "/galerie",
-        element: withSuspense(<GalerieIndex />)
+        path: "/donate",
+        children: [
+          {
+            index: true,
+            element: <DonationProviderView />
+          }
+        ]
       },
       {
-        path: "/galerie/:slug",
-        element: withSuspense(<GalerieView />),
-      },
-      {
-        path: "/event",
-        element: withSuspense(<Event />)
-      },
-      {
-        path: "/contact",
-        element: withSuspense(<Contact />),
-      },
-      {
-        path: "/event/:eventID",
-        element: withSuspense(<EventForms />),
+        path: "*",
+        element: <NotFound />,
       }
     ]
-  },
-  {
-    path: "/donate",
-    children: [
-      {
-        index: true,
-        element: withSuspense(<DonationProviderView />)
-      },
-      {
-        path: "mobile",
-        element: withSuspense(<DonateView />)
-      }
-    ]
-  },
-  {
-    path: "*",
-    element: <NotFound />,
-  },
+  }
 ]);
 
 export default router;

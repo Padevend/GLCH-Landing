@@ -4,17 +4,15 @@ import {
   Calendar,
   MapPin,
   ArrowRight,
-  Info,
   Clock,
   Share2,
+  ArrowUpRight
 } from "lucide-react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function Event() {
   const [EventsList, setEventsList] = useState([]);
-  const navigate = useNavigate();
 
-  // Gestion des variables d'environnement avec fallback pour le mode aperçu
   const SERVER_ROOT =
     typeof import.meta !== "undefined" && import.meta.env
       ? import.meta.env.VITE_SERVER_ROOT
@@ -45,179 +43,159 @@ export default function Event() {
 
   const Shared = async (event) => {
     if(navigator.share) {
-      // Data to be shared
       await navigator.share({
         title: document.title,
-        text: `Inscrit toi a l'evenment : ${event.name} organiser par grand luc community health`,
+        text: `Inscris-toi à l'événement : ${event.name} organisé par Grand Luc Community Health`,
         url: event.formLink,
       });
     } else {
-      navigator.clipboard.writeText(stack.formLink);
+      navigator.clipboard.writeText(event.formLink || event.form_link);
     }
   };
 
   return (
-    <div className="min-h-screen bg-[#F8F9FD] font-sans selection:bg-violet-100 selection:text-violet-900">
-      {/* Hero Section Premium */}
-      <section
-        id="home"
-        className="h-[50vh] md:h-[65vh] bg-violet-950 flex justify-center items-center relative overflow-hidden"
-      >
-        <div className="absolute inset-0 z-10 bg-gradient-to-b from-violet-950/80 via-violet-900/40 to-[#F8F9FD]" />
-
-        <img
-          src="/image/background.jpg"
-          alt="Background"
-          className="absolute inset-0 w-full h-full object-cover opacity-40 scale-110 blur-[2px]"
-        />
-
-        <div className="relative z-20 w-full max-w-7xl mx-auto px-6 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 bg-white/10 backdrop-blur-xl border border-white/20 rounded-full shadow-2xl">
-            <span className="flex h-2 w-2 rounded-full bg-green-400 animate-pulse"></span>
-            <span className="text-white text-xs font-black tracking-[0.2em] uppercase">
-              Agenda Santé 2024
-            </span>
-          </div>
-
-          <h1 className="text-white text-6xl md:text-8xl font-black tracking-tighter mb-6 drop-shadow-2xl">
-            ÉVÉNEMENTS
-          </h1>
-          <p className="text-violet-100 text-lg md:text-xl max-w-2xl mx-auto font-light leading-relaxed">
-            Participez à nos ateliers, conférences et programmes de prévention
-            pour une communauté plus forte.
-          </p>
-
-          <div className="mt-12">
-            <NavLink
-              to="/"
-              className="inline-flex items-center gap-3 bg-white text-violet-950 px-8 py-4 rounded-2xl font-black text-sm transition-all hover:scale-105 hover:shadow-[0_20px_50px_rgba(255,255,255,0.2)] active:scale-95"
-            >
-              <MoveLeft size={20} />
-              RETOUR À L'ACCUEIL
-            </NavLink>
-          </div>
-        </div>
-      </section>
-
-      {/* Grille d'Événements */}
-      <div className="max-w-7xl mx-auto px-6 -mt-20 pb-32 relative z-30">
-        {EventsList.length === 0 ? (
-          <div className="bg-white rounded-[3rem] p-20 shadow-xl shadow-gray-200/50 flex flex-col items-center text-center">
-            <div className="w-24 h-24 bg-violet-50 rounded-full flex items-center justify-center mb-6">
-              <Calendar size={40} className="text-violet-200" />
+    <div className="min-h-screen bg-[#fafafa] font-sans text-slate-900 selection:bg-slate-100">
+      
+      {/* --- EN-TÊTE ÉDITORIAL TRANSPARENT --- */}
+      <header className="border-b border-slate-200/60 pt-32 pb-16 bg-white">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          
+          <Link 
+            to="/" 
+            className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-slate-400 hover:text-slate-900 transition-colors mb-8 group"
+          >
+            <MoveLeft size={14} className="group-hover:-translate-x-1 transition-transform duration-300" />
+            <span>Retour à l'accueil</span>
+          </Link>
+          
+          <div className="grid lg:grid-cols-12 gap-8 items-end">
+            <div className="lg:col-span-7">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-violet-50 text-violet-700 text-[10px] font-bold tracking-[0.2em] uppercase mb-4 border border-violet-100">
+                <span className="flex h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span>Agenda Régional {new Date().getFullYear()}</span>
+              </div>
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight text-slate-900 uppercase leading-none">
+                PROGRAMMES & <br />
+                <span className="bg-gradient-to-r from-violet-600 to-fuchsia-600 bg-clip-text text-transparent">Événements</span>
+              </h1>
             </div>
-            <h3 className="text-2xl font-black text-gray-900 mb-2">
-              Aucun événement prévu
+            <div className="lg:col-span-5">
+              <p className="text-slate-500 text-sm sm:text-base font-normal leading-relaxed border-l-2 border-slate-200 pl-6">
+                Prenez part à nos ateliers cliniques, conférences de sensibilisation et campagnes de proximité pour co-construire une culture de la prévention sanitaire.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </header>
+
+      {/* --- GRILLE PRINCIPALE / COMPOSANT SATELLITE --- */}
+      <main className="max-w-7xl mx-auto px-6 lg:px-8 py-20">
+        {EventsList.length === 0 ? (
+          <div className="bg-white border border-slate-200/60 rounded-[2.5rem] p-12 md:p-24 shadow-[0_4px_30px_rgba(0,0,0,0.01)] flex flex-col items-center text-center max-w-2xl mx-auto">
+            <div className="w-14 h-14 bg-slate-50 border border-slate-200/60 rounded-2xl flex items-center justify-center mb-6 text-slate-400">
+              <Calendar size={20} />
+            </div>
+            <h3 className="text-xl font-black text-slate-900 uppercase tracking-tight mb-2">
+              Aucun événement planifié
             </h3>
-            <p className="text-gray-400 max-w-sm">
-              Revenez bientôt pour découvrir nos prochaines initiatives de santé
-              communautaire.
+            <p className="text-slate-500 text-sm font-normal max-w-sm leading-relaxed">
+              Nos équipes de coordination médicale préparent les prochaines sessions de dépistage et de prévention.
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
             {EventsList.map((stack, index) => (
               <div
                 key={stack.id || index}
-                className="group bg-white rounded-[2.5rem] border border-gray-100 shadow-sm hover:shadow-2xl hover:shadow-violet-200/40 transition-all duration-500 flex flex-col overflow-hidden hover:-translate-y-2"
+                className="group bg-white rounded-[2.5rem] border border-slate-200/60 p-4 shadow-[0_4px_30px_rgba(0,0,0,0.01)] hover:shadow-[0_30px_60px_-15px_rgba(148,163,184,0.12)] transition-all duration-500 flex flex-col justify-between"
               >
-                {/* Media Section */}
-                <div className="relative h-64 overflow-hidden">
-                  <img
-                    src={`${PUBLIC_ROOT}/${stack.cover}`}
-                    className="object-cover h-full w-full transform group-hover:scale-110 transition-transform duration-700"
-                    alt={stack.name}
-                    onError={(e) => {
-                      e.currentTarget.src =
-                        "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=800";
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div>
+                  {/* Image / Zone supérieure fixe */}
+                  <div className="relative aspect-[16/10] w-full rounded-[1.8rem] overflow-hidden bg-slate-50 border border-slate-200/40 mb-6">
+                    <img
+                      src={`${PUBLIC_ROOT}/${stack.cover}`}
+                      className="object-cover h-full w-full transition-transform duration-[1.2s] ease-out group-hover:scale-103"
+                      alt={stack.name}
+                      onError={(e) => {
+                        e.currentTarget.src =
+                          "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=800";
+                      }}
+                    />
 
-                  {/* Badge de date flottant */}
-                  <div className="absolute top-5 left-5 bg-white/95 backdrop-blur-md px-4 py-2 rounded-2xl shadow-xl flex flex-col items-center min-w-[60px]">
-                    <span className="text-violet-700 text-lg font-black leading-none">
-                      {new Date(stack.date).getDate()}
-                    </span>
-                    <span className="text-gray-400 text-[10px] font-bold uppercase tracking-widest mt-1">
-                      {new Date(stack.date).toLocaleDateString("fr-FR", {
-                        month: "short",
-                      })}
-                    </span>
-                  </div>
-
-                  <button
-                    onClick={() => Shared(stack)}
-                    className="absolute top-5 right-5 p-3 bg-white/20 backdrop-blur-md border border-white/30 rounded-full text-white hover:bg-white hover:text-violet-600 transition-all"
-                  >
-                    <Share2 size={18} />
-                  </button>
-                </div>
-
-                {/* Content Section */}
-                <div className="p-8 flex flex-col flex-1">
-                  <div className="flex items-center gap-2 mb-4">
-                    <span className="px-3 py-1 bg-violet-50 text-violet-600 text-[10px] font-black uppercase tracking-wider rounded-lg">
-                      {stack.place || "Lieu à confirmer"}
-                    </span>
-                  </div>
-
-                  <h3 className="text-2xl font-black text-gray-900 leading-tight mb-4 group-hover:text-violet-700 transition-colors">
-                    {stack.name}
-                  </h3>
-
-                  <div className="space-y-3 mb-8 flex-1">
-                    <div className="flex items-center gap-3 text-gray-500">
-                      <div className="p-2 bg-gray-50 rounded-lg">
-                        <MapPin size={16} className="text-violet-500" />
-                      </div>
-                      <span className="text-sm font-medium">{stack.place}</span>
-                    </div>
-                    <div className="flex items-center gap-3 text-gray-500">
-                      <div className="p-2 bg-gray-50 rounded-lg">
-                        <Clock size={16} className="text-violet-500" />
-                      </div>
-                      <span className="text-sm font-medium">
-                        À partir de 09:00
+                    {/* Badge Calendrier Éditorial */}
+                    <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-md px-3 py-2 rounded-xl shadow-sm border border-slate-200/40 flex flex-col items-center min-w-[55px]">
+                      <span className="text-slate-900 text-base font-black leading-none font-mono">
+                        {new Date(stack.date).getDate()}
+                      </span>
+                      <span className="text-slate-400 text-[9px] font-bold uppercase tracking-wider mt-1">
+                        {new Date(stack.date).toLocaleDateString("fr-FR", {
+                          month: "short",
+                        })}
                       </span>
                     </div>
+
+                    {/* Partage Intuitif */}
+                    <button
+                      onClick={() => Shared(stack)}
+                      className="absolute top-4 right-4 p-2.5 bg-white/90 backdrop-blur-md border border-slate-200/40 rounded-xl text-slate-500 hover:text-slate-900 transition-all shadow-sm"
+                      aria-label="Partager l'événement"
+                    >
+                      <Share2 size={14} />
+                    </button>
                   </div>
 
-                  <div className="pt-6 border-t border-gray-50 mt-auto">
-                    <a
-                      href={stack.formLink || stack.form_link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-3 w-full bg-violet-50 text-violet-700 hover:bg-violet-600 hover:text-white px-6 py-4 rounded-2xl font-black transition-all group/btn"
-                    >
-                      S'INSCRIRE
-                      <ArrowRight
-                        size={18}
-                        className="group-hover/btn:translate-x-1 transition-transform"
-                      />
-                    </a>
+                  {/* Contenu textuel structuré */}
+                  <div className="px-2">
+                    <h3 className="text-lg font-black text-slate-900 tracking-tight leading-snug mb-4 group-hover:text-violet-600 transition-colors duration-300">
+                      {stack.name}
+                    </h3>
+
+                    {/* Paramètres d'indexation (Meta) */}
+                    <div className="space-y-2.5 mb-6 border-b border-slate-100 pb-5">
+                      <div className="flex items-center gap-2.5 text-slate-500 text-xs font-medium">
+                        <MapPin size={14} className="text-slate-400 shrink-0" />
+                        <span className="truncate">{stack.place || "Lieu à confirmer"}</span>
+                      </div>
+                      <div className="flex items-center gap-2.5 text-slate-500 text-xs font-medium">
+                        <Clock size={14} className="text-slate-400 shrink-0" />
+                        <span>À partir de 09:00 (WAT)</span>
+                      </div>
+                    </div>
                   </div>
+                </div>
+
+                {/* Bouton d'action structurel bas de carte */}
+                <div className="px-2 pb-2">
+                  <a
+                    href={stack.formLink || stack.form_link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2 w-full bg-slate-50 text-slate-900 border border-slate-200/60 hover:bg-slate-950 hover:text-white hover:border-transparent px-5 py-3.5 rounded-xl text-xs font-bold tracking-widest uppercase transition-all duration-300"
+                  >
+                    <span>S'inscrire au programme</span>
+                    <ArrowRight size={14} className="transform transition-transform duration-300 group-hover:translate-x-0.5" />
+                  </a>
                 </div>
               </div>
             ))}
           </div>
         )}
-      </div>
+      </main>
 
-      {/* Section Contact/Info rapide */}
-      <section className="bg-white py-20">
+      {/* --- BLOC APPEL À L'ACTION : SOLLICITATION ATELIER --- */}
+      <section className="bg-white border-t border-slate-200/60 py-24">
         <div className="max-w-5xl mx-auto px-6 text-center">
-          <div className="bg-violet-50 rounded-[3rem] p-10 md:p-16 border border-violet-100">
-            <h2 className="text-3xl font-black text-gray-900 mb-6">
+          <div className="bg-slate-50 border border-slate-200/60 rounded-[2.5rem] p-8 md:p-16 max-w-4xl mx-auto">
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight mb-4 uppercase">
               Vous souhaitez organiser un atelier ?
             </h2>
-            <p className="text-gray-500 text-lg mb-10 max-w-2xl mx-auto leading-relaxed">
-              Nous collaborons avec des professionnels de santé pour
-              sensibiliser la communauté. Contactez-nous pour proposer un
-              projet.
+            <p className="text-slate-500 text-sm sm:text-base font-normal mb-8 max-w-2xl mx-auto leading-relaxed">
+              Nous collaborons activement avec les praticiens de santé locaux et internationaux pour structurer des espaces d'apprentissage collectifs. Contactez notre comité d'éthique pour soumettre un projet.
             </p>
-            <button className="bg-violet-900 text-white px-10 py-5 rounded-2xl font-black shadow-xl shadow-violet-200 hover:bg-black transition-all">
-              NOUS CONTACTER
+            <button className="inline-flex items-center gap-2.5 bg-slate-950 hover:bg-slate-900 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 shadow-sm text-xs tracking-widest uppercase">
+              <span>Soumettre une proposition</span>
+              <ArrowUpRight size={14} className="text-slate-400" />
             </button>
           </div>
         </div>

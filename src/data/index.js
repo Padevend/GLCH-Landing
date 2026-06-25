@@ -80,21 +80,21 @@ const Prices = [
   {
     name: "ACTIVE MEMBER",
     price: "10,000",
-    features: ["Standard health card", "Mutual assistance fund", "Primary care priority", "Voting rights"],
+    features: ["Community card", "Mutual assistance fund", "Primary care priority", "Voting rights"],
     isPopular: true,
     icon: Award
   },
   {
     name: "HONORARY MEMBER",
     price: "50,000",
-    features: ["Gold health card", "Full primary care coverage", "Executive meetings access", "Recognition plaque"],
+    features: ["Community card", "Mutual assistance fund", "Primary care priority", "Voting rights"],
     isPopular: false,
     icon: Sparkles
   },
   {
     name: "DONOR",
     price: "+ 50,000",
-    features: ["Philanthropist status", "Named health projects", "Annual impact report", "Life-long recognition"],
+    features: ["Community card", "Mutual assistance fund", "Primary care priority", "Voting rights"],
     isPopular: false,
     icon: HeartHandshake
   }
@@ -121,4 +121,8 @@ var faqs = [
   },
 ];
 
-export { Abouts, services, Prices, faqs };
+var donations_links = {
+  mesomb: "https://pay.mesomb.com/l/cq5CPAu6vSUxtJ7llQ2s",
+  paypal: "https://www.paypal.com/donate/?hosted_button_id=YOUR_BUTTON_ID"
+}
+export { Abouts, services, Prices, faqs, donations_links };

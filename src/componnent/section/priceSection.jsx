@@ -1,105 +1,132 @@
-import { Check, CreditCard, Sparkles, HelpCircle, Wallet } from "lucide-react";
+import { Check, CreditCard, Sparkles, HelpCircle, Wallet, ArrowUpRight } from "lucide-react";
 import { Prices } from "../../data";
 
 export default function PriceSection() {
   return (
-    <section id="pricing" className="py-24 bg-gray-50/50">
-      <div className="container mx-auto px-6 lg:px-24">
+    <section id="pricing" className="py-24 md:py-32 bg-[#fafafa] font-sans text-slate-900">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
         
-        {/* Header Section */}
-        <div className="flex flex-col items-center text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-100 text-violet-700 text-xs font-bold tracking-widest uppercase mb-4">
-            <CreditCard size={14} />
-            <span>Membership Plans</span>
+        {/* --- EN-TÊTE ÉDITORIAL --- */}
+        <div className="grid lg:grid-cols-12 gap-8 mb-20 pb-10 border-b border-slate-200/60">
+          <div className="lg:col-span-6">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-violet-50 text-violet-700 text-[10px] font-bold tracking-[0.2em] uppercase mb-4 border border-violet-100">
+              <CreditCard size={12} className="text-violet-600" />
+              <span>Membership Plans</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-slate-900 uppercase">
+              Nos Formules <br />
+              <span className="bg-gradient-to-r from-violet-600 to-fuchsia-600 bg-clip-text text-transparent">D'Adhésion</span>
+            </h2>
           </div>
-          <h2 className="text-3xl md:text-5xl font-black text-gray-900 mb-4">
-            PRICING <span className="text-violet-700">PLAN</span>
-          </h2>
-          <p className="text-gray-500 text-lg max-w-2xl font-light">
-            Become a part of our health community. Choose a membership level that reflects your commitment to wellness.
-          </p>
-          <div className="mt-6 w-16 h-1.5 bg-violet-600 rounded-full"></div>
+          <div className="lg:col-span-6 flex items-end lg:pb-2">
+            <p className="text-slate-500 text-sm sm:text-base leading-relaxed font-normal max-w-xl">
+              Become a part of our health community. Choose a membership level that reflects your commitment to wellness and community-driven mutual support.
+            </p>
+          </div>
         </div>
 
-        {/* Pricing Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 xl:gap-8">
+        {/* --- GRILLE DE TARIFICATION FULL LIGHT --- */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 xl:gap-8 items-stretch">
           {Prices.map((tier, index) => (
             <div 
               key={index}
-              className={`relative p-8 rounded-[2rem] flex flex-col transition-all duration-500 hover:-translate-y-2 ${
+              className={`relative p-8 rounded-[2.5rem] bg-white flex flex-col justify-between transition-all duration-500 hover:-translate-y-1 ${
                 tier.isPopular 
-                ? "bg-violet-900 text-white shadow-2xl shadow-violet-200 ring-4 ring-violet-500/20" 
-                : "bg-white text-gray-900 border border-gray-100 hover:shadow-xl"
+                ? "border-2 border-slate-900 shadow-[0_25px_50px_-12px_rgba(15,23,42,0.08)] z-10" 
+                : "border border-slate-200/60 shadow-[0_4px_30px_rgba(0,0,0,0.01)] hover:shadow-[0_20px_40px_rgba(15,23,42,0.03)]"
               }`}
             >
+              {/* Badge plan populaire épuré */}
               {tier.isPopular && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-amber-400 to-orange-500 text-white text-[10px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full shadow-lg flex items-center gap-1">
-                  <Sparkles size={10} />
-                  Most Common
+                <div className="absolute -top-3.5 left-8 bg-slate-900 text-white text-[9px] font-bold uppercase tracking-[0.2em] px-4 py-1.5 rounded-xl shadow-sm flex items-center gap-1">
+                  <Sparkles size={10} className="text-amber-400 fill-amber-400" />
+                  Recommandé
                 </div>
               )}
 
-              <div className="mb-8 flex flex-col items-center">
-                <div className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-4 ${tier.isPopular ? "bg-white/10 text-white" : "bg-violet-50 text-violet-700"}`}>
-                  <tier.icon size={24} />
+              <div>
+                {/* En-tête de la carte */}
+                <div className="mb-8 flex items-center justify-between">
+                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center border ${
+                    tier.isPopular ? "bg-slate-900 text-white border-transparent" : "bg-slate-50 text-slate-700 border-slate-200/60"
+                  }`}>
+                    <tier.icon size={20} />
+                  </div>
+                  <span className="text-[10px] font-mono font-bold text-slate-300">/0{index + 1}</span>
                 </div>
-                <p className={`text-xs font-black uppercase tracking-[0.2em] mb-4 text-center ${tier.isPopular ? "text-violet-300" : "text-violet-600"}`}>
+
+                <p className="text-xs font-bold uppercase tracking-[0.2em] text-slate-400 mb-2">
                   {tier.name}
                 </p>
-                <div className="flex items-baseline gap-1">
-                  <span className="text-3xl font-black">{tier.price}</span>
-                  <span className={`text-xs font-medium ${tier.isPopular ? "text-violet-300" : "text-gray-400"}`}>XAF/year</span>
+
+                {/* Zone de Prix */}
+                <div className="flex items-baseline gap-1.5 pb-6 mb-8 border-b border-slate-100">
+                  <span className="text-3xl font-black tracking-tight text-slate-900">{tier.price}</span>
+                  <span className="text-xs font-bold uppercase tracking-wider text-slate-400">XAF<span className="text-slate-300 font-normal">/an</span></span>
                 </div>
+
+                {/* Liste des Avantages */}
+                <ul className="space-y-4 mb-8">
+                  {tier.features.map((feature, fIndex) => (
+                    <li key={fIndex} className="flex items-start gap-3 text-xs sm:text-sm">
+                      <div className="mt-0.5 rounded-full p-0.5 bg-emerald-50 text-emerald-600 border border-emerald-100 flex-shrink-0">
+                        <Check size={10} strokeWidth={3} />
+                      </div>
+                      <span className="text-slate-600 font-normal leading-tight">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
 
-              {/* Features List */}
-              <ul className="space-y-4 mb-8 flex-grow">
-                {tier.features.map((feature, fIndex) => (
-                  <li key={fIndex} className="flex items-start gap-3 text-sm">
-                    <div className={`mt-0.5 rounded-full p-0.5 ${tier.isPopular ? "bg-violet-400/20 text-violet-300" : "bg-violet-100 text-violet-600"}`}>
-                      <Check size={12} strokeWidth={3} />
-                    </div>
-                    <span className={tier.isPopular ? "text-violet-100" : "text-gray-600"}>{feature}</span>
-                  </li>
-                ))}
-              </ul>
-
+              {/* Bouton d'Action Structurel */}
               <a
-                href="https://glchcommmunitycard.netlify.app"
+                href="https://card.glchcommunity.online"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`w-full py-3.5 px-6 rounded-xl font-bold text-center transition-all duration-300 text-sm ${
+                className={`w-full py-3.5 px-6 rounded-xl font-bold text-center transition-all duration-300 text-xs tracking-widest uppercase border ${
                   tier.isPopular 
-                  ? "bg-white text-violet-900 hover:bg-violet-50" 
-                  : "bg-violet-700 text-white hover:bg-violet-800"
+                  ? "bg-slate-900 hover:bg-slate-800 text-white border-transparent shadow-sm" 
+                  : "bg-transparent hover:bg-slate-50 text-slate-800 border-slate-200 hover:border-slate-300"
                 }`}
               >
-                Choose Plan
+                NOUS REJOINDRE
               </a>
             </div>
           ))}
         </div>
 
-        {/* Footer Question Section */}
-        <div className="mt-20 flex flex-col items-center text-center max-w-2xl mx-auto">
-          <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-violet-600 shadow-sm border border-gray-100 mb-6">
-            <HelpCircle size={32} />
+        {/* --- SECTION MANIFESTE PREVENTIF & CTA CARTES --- */}
+        <div className="mt-24 relative bg-white border border-slate-200/80 rounded-[2.5rem] p-8 md:p-16 shadow-[0_30px_60px_-15px_rgba(148,163,184,0.08)] overflow-hidden">
+          {/* Décoration d'arrière-plan très discrète */}
+          <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-violet-50 to-fuchsia-50 rounded-full blur-3xl pointer-events-none -z-10" />
+          
+          <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-10">
+            <div className="max-w-2xl">
+              <div className="flex items-center gap-2 text-violet-600 mb-4">
+                <HelpCircle size={18} />
+                <span className="text-xs font-bold tracking-wider uppercase text-slate-400">Question de santé globale</span>
+              </div>
+              <h4 className="text-xl sm:text-2xl md:text-3xl font-black text-slate-900 tracking-tight mb-4 leading-tight">
+                Why wait until you're sick to go to the hospital?
+              </h4>
+              <p className="text-slate-500 text-sm sm:text-base font-normal leading-relaxed italic border-l-2 border-slate-200 pl-4">
+                "Register now and become a member of the community to enjoy preventive care, reduced medical expenses, and regional solidarity."
+              </p>
+            </div>
+
+            <div className="flex-shrink-0 w-full lg:w-auto">
+              <a
+                href="https://card.glchcommunity.online"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-3 w-full lg:w-auto bg-slate-950 hover:bg-slate-900 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 shadow-sm hover:shadow-md text-xs tracking-[0.15em] uppercase"
+              >
+                <Wallet size={14} className="text-slate-400" />
+                <span>Obtenir ma carte membre</span>
+                <ArrowUpRight size={14} className="text-slate-500" />
+              </a>
+            </div>
           </div>
-          <h4 className="text-xl font-bold text-gray-900 mb-4">
-            Why wait until you're sick to go to the hospital?
-          </h4>
-          <p className="text-gray-500 mb-8 font-light italic leading-relaxed">
-            Register now and become a member of the community to enjoy preventive care and mutual assistance.
-          </p>
-          <a
-            href="https://glchcommmunitycard.netlify.app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-3 bg-violet-800 text-white font-bold py-4 px-10 rounded-full hover:bg-violet-900 transition-all hover:scale-105 shadow-xl shadow-violet-200"
-          >
-            <Wallet size={20} />
-            <span>GET YOUR CARDS NOW</span>
-          </a>
         </div>
 
       </div>
